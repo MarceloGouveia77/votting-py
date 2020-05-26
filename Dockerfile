@@ -36,7 +36,4 @@ COPY . .
 RUN pip3 install --upgrade pip 
 RUN pip3 install pipenv
 
-# Install project dependencies
-RUN pipenv install --skip-lock --system --dev
-
 CMD uvicorn votting.asgi:application --reload --port 8888
