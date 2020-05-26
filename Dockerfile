@@ -2,11 +2,9 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
 # create and set working directory
-RUN mkdir /app
 WORKDIR /app
 
 # Add current directory code to working directory
-ADD . /app/
 
 # set default environment variables
 ENV PYTHONUNBUFFERED 1
@@ -30,6 +28,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+COPY . .
 
 # install environment dependencies
 RUN pip3 install --upgrade pip 
@@ -38,5 +39,4 @@ RUN pip3 install pipenv
 # Install project dependencies
 RUN pipenv install --skip-lock --system --dev
 
-EXPOSE 8888
 CMD uvicorn votting.asgi:application --reload --port 8888
