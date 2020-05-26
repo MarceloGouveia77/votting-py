@@ -2,7 +2,6 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
 # create and set working directory
-RUN mkdir /app
 WORKDIR /app
 
 # Add current directory code to working directory
