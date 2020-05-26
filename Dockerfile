@@ -2,12 +2,11 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 
 # create and set working directory
+RUN mkdir /app
 WORKDIR /app
 
 # Add current directory code to working directory
 ADD . /app/
-
-COPY ./app /app
 
 # set default environment variables
 ENV PYTHONUNBUFFERED 1
@@ -40,4 +39,4 @@ RUN pip3 install pipenv
 RUN pipenv install --skip-lock --system --dev
 
 EXPOSE 8888
-CMD uvicorn votting.asgi:application --bind 0.0.0.0:$PORT
+CMD uvicorn votting.asgi:application --reload --port 8888
