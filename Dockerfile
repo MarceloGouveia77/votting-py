@@ -3,11 +3,8 @@ FROM tiangolo/uvicorn-gunicorn:python3.8
 
 # create and set working directory
 WORKDIR /app
-
-COPY ./app /app
-
 # Add current directory code to working directory
-COPY . ./app
+COPY . /app
 # set default environment variables
 ENV PYTHONUNBUFFERED 1
 
