@@ -1,1 +1,1 @@
-web: uvicorn --host votting.asgi:application
+web: uvicorn votting.asgi:application --reload
