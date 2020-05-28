@@ -27,11 +27,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-EXPOSE 80
-
 # install environment dependencies
-RUN pip3 install --upgrade pip 
-RUN pip3 install pipenv
-RUN pip install --no-cache-dir fastapi
-
-CMD uvicorn votting.asgi:application --reload --port 80
+RUN pip3 install --upgrade pip
