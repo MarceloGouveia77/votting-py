@@ -13,12 +13,8 @@ ENV REDIS_URL = '0.0.0.0'
 # these are 100% optional here
 
 # Install system dependencies
-RUN apt-get update && apt-get upgrade \
-        tzdata \
-        git \
-        && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
@@ -26,4 +22,4 @@ RUN pip install -r requirements.txt
 # install environment dependencies
 RUN pip3 install --upgrade pip
 
-CMD uvicorn votting.asgi:application --reload --port $PORT --host 0.0.0.0 && python manage.py runworker channels --settings=votting.settings 
+CMD uvicorn votting.asgi:application --reload --port 80 --host 0.0.0.0 && python manage.py runworker channels --settings=votting.settings 
