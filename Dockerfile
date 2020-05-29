@@ -1,5 +1,5 @@
 # Base Image
-FROM tiangolo/uvicorn-gunicorn:python3.8
+FROM python:3.8.2
 
 # create and set working directory
 WORKDIR /app
@@ -7,18 +7,14 @@ WORKDIR /app
 COPY . /app
 # set default environment variables
 ENV PYTHONUNBUFFERED 1
-
+ENV REDIS_URL = '0.0.0.0'
 # set project environment variables
 # grab these via Python's os.environ
 # these are 100% optional here
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade \
         tzdata \
-        python3-setuptools \
-        python3-pip \
-        python3-dev \
-        python3-venv \
         git \
         && \
     apt-get clean && \
@@ -29,3 +25,5 @@ RUN pip install -r requirements.txt
 
 # install environment dependencies
 RUN pip3 install --upgrade pip
+
+CMD uvicorn votting.asgi:application --reload --port $PORT --host 0.0.0.0 && python manage.py runworker channels --settings=votting.settings 
