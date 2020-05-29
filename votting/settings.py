@@ -72,11 +72,10 @@ TEMPLATES = [
 ASGI_APPLICATION = "votting.routing.application"
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            'hosts': ['0.0.0.0'], 
-  
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('192.168.15.110', 6379)],
         },
     },
 }
